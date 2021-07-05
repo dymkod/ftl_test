@@ -1,5 +1,6 @@
 class UrlsController < ApplicationController
-  before_action :authorize_response
+  # since its an API service, assuming we need to authorize all request from client, not just :create
+  before_action :authenticate_user!
 
   def show
     code = params[:code]

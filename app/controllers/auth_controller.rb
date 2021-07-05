@@ -7,9 +7,8 @@ class AuthController < ApplicationController
     end
 
     token = JsonWebToken.encode(user_id: user.id)
-    pretty_time = JsonWebToken::EXPIRE_TIME.strftime("%m-%d-%Y %H:%M")
-    render json: { token: token, exp: pretty_time,
-                   username: user.name }, status: :ok
+    pretty_time = JsonWebToken::DEFAULT_EXPIRE_TIME.strftime("%m-%d-%Y %H:%M")
+    render json: { token: token, exp: pretty_time }, status: :ok
   end
 
   private

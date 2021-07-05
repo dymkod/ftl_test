@@ -6,7 +6,8 @@ class JsonWebToken
 
   class << self
     def encode(body, expire = DEFAULT_EXPIRE_TIME)
-      body[:exp] = expire
+      # JWT requires
+      body[:exp] = expire.to_i
 
       JWT.encode(body, SECRET_KEY)
     end

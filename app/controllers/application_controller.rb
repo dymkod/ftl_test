@@ -1,11 +1,7 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate_user!
-
   def current_user
     @current_user ||= authorized_request_user
   end
-
-  private
 
   def authenticate_user!
     unless current_user.present?
@@ -14,6 +10,8 @@ class ApplicationController < ActionController::API
 
     true
   end
+
+  private
 
   def authorized_request_user
     # might be better to move specific logic to some service, not sure
