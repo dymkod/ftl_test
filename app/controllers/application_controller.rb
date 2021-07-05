@@ -9,31 +9,26 @@ class ApplicationController < ActionController::API
 
   def authenticate_user!
     unless current_user.present?
-      render_unauthorized_error and return
+      render(json: { error: 'unauthorized' }, status: :unauthorized) and return
     end
 
     true
   end
 
   def authorized_request_user
-    # TODO: move most of logic to some service
+    # might be better to move specific logic to some service, not sure
     header = request.headers['Authorization']
-    if header.blank?
-      render_unauthorized_error and return
-    end
-
+    return false if header.blank?
     header = header.split(' ').last
 
     begin
       decoded = JsonWebToken.decode(header)
-      User.find_by(id: decoded[:user_id]) # using find_by to get soft response in case of failure
+
+      # using find_by to get soft response in case of failure
+      User.find_by(id: decoded[:user_id])
     rescue JWT::DecodeError => e
-      render_unauthorized_error(e.message)
+      # in this case we will return 'unauthorized' error in method above
+      false
     end
   end
-
-  def render_unauthorized_error(error = 'unauthorized')
-    render json: { error: error }, status: :unauthorized
-  end
-
 end

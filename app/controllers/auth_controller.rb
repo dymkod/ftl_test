@@ -6,19 +6,15 @@ class AuthController < ApplicationController
       return
     end
 
-    if user.authenticate(login_params[:password])
-      token = JsonWebToken.encode(user_id: user.id)
-      pretty_time = JsonWebToken::EXPIRE_TIME.strftime("%m-%d-%Y %H:%M")
-      render json: { token: token, exp: pretty_time,
-                     username: user.username }, status: :ok
-    else
-      render json: { error: 'unauthorized' }, status: :unauthorized
-    end
+    token = JsonWebToken.encode(user_id: user.id)
+    pretty_time = JsonWebToken::EXPIRE_TIME.strftime("%m-%d-%Y %H:%M")
+    render json: { token: token, exp: pretty_time,
+                   username: user.name }, status: :ok
   end
 
   private
 
   def login_params
-    params.permit(:email, :password)
+    params.permit(:email)
   end
 end
