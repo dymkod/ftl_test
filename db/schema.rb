@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_05_121212) do
+ActiveRecord::Schema.define(version: 2021_07_05_173629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 2021_07_05_121212) do
     t.string "code"
     t.string "url"
     t.index ["code"], name: "index_urls_on_code", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
