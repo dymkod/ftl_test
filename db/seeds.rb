@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all # clean up to not get index viaolation, if there is any already created users with these emails
 User.create(email: 'asd@asd.com')
 User.create(email: 'test@fasterthanlight.com')
 User.create(email: 'dymko.denis@gmail.com')
