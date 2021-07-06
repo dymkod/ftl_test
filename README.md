@@ -22,3 +22,4 @@
    - result of previous steps would be a hash, in this format: `{url: 'https://www.booking.com/searchresults.ru.html'}`
    
    
+   - `rspec` to run all tests
