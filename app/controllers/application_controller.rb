@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   private
 
   def authorized_request_user
-    # might be better to move specific logic to some service, not sure
+    # might be better to move specific logic to some service, depends on project conventions
     header = request.headers['Authorization']
     return false if header.blank?
     header = header.split(' ').last
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
     begin
       decoded = JsonWebToken.decode(header)
 
-      # using find_by to get soft response in case of failure
+      # using find_by to get "soft" response in case of failure
       User.find_by(id: decoded[:user_id])
     rescue JWT::DecodeError => e
       # in this case we will return 'unauthorized' error in method above

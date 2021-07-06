@@ -5,8 +5,8 @@ class CodeGenerateService
 
   def generate
     # url, base64, SHA, 8 last chars
-    url_with_salt = @url.concat(Time.now.to_s)
-    base = Base64.encode64(url_with_salt)
+    #url_with_salt = @url.concat(Time.now.to_s)
+    base = Base64.encode64(@url + Time.now.to_s)
 
     Digest::SHA1.new.update(base).hexdigest.last(Url::CODE_LENGHT)
   end
