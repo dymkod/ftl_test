@@ -1,5 +1,6 @@
 class AuthController < ApplicationController
   def login
+    # checking only email here, to get jwt token; can be more strict by adding password for user
     user = User.find_by(email: login_params[:email])
     if user.nil?
       render json: { error: 'not_found'}, status: :not_found

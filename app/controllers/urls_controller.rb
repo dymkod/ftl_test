@@ -1,5 +1,4 @@
 class UrlsController < ApplicationController
-  # since its an API service, assuming we need to authorize all request from client, not just :create
   before_action :authenticate_user!, only: :create
 
   def show
